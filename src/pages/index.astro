@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const facade = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Teatro_Juarez_Fachada.jpg';
+const night = 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Teatro_Ju%C3%A1rez_de_noche.JPG';
+const interior = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Interior_of_Teatro_Juarez_Main_Auditorium_-_Guanajuato_-_Mexico_-_01_%2839138645172%29.jpg';
+const lobby = 'https://upload.wikimedia.org/wikipedia/commons/4/48/Teatro_Ju%C3%A1rez%2C_Guanajuato_09_-_Esculturas_del_lobby.jpg';
+const panorama = 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Panorama_of_Interior_of_Teatro_Juarez_Main_Auditorium_-_Guanajuato_-_Mexico_%2839168803691%29.jpg';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': ['PerformingArtsTheater', 'TouristAttraction'],
+  name: 'Teatro Juárez',
+  alternateName: ['华雷斯剧院', 'Juárez Theatre'],
+  description: 'Teatro histórico de Guanajuato inaugurado en 1903, reconocido por su fachada clasicista y su sala de inspiración neomudéjar.',
+  telephone: '+52 473 732 2521',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'De Sopena 10, Centro',
+    addressLocality: 'Guanajuato',
+    addressRegion: 'Guanajuato',
+    postalCode: '36000',
+    addressCountry: 'MX'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 21.0153,
+    longitude: -101.2529
+  },
+  sameAs: [
+    'https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9',
+    'https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/',
+    'https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/18296'
+  ]
+};
+---
+<BaseLayout>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <section class="hero" style={`--hero-image:url('${night}')`}>
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker">Escena · Arquitectura · Memoria</div>
+        <h1>Teatro<br />Juárez <em>Guanajuato, México</em></h1>
+        <p class="hero-copy">Una fachada solemne de doce columnas, ocho musas de bronce y un interior que cambia el clasicismo por la fantasía neomudéjar. Desde 1903, el teatro es uno de los grandes símbolos culturales de la ciudad.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#visita">Planear la visita</a>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">Ver en Google Maps ↗</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Información rápida">
+        <div class="rating"><div><div class="kicker" style="margin:0 0 4px">Valoración en Maps</div><strong>4.8</strong></div><span>19,249 reseñas*</span></div>
+        <dl>
+          <div><dt>Tipo</dt><dd>Teatro histórico · recinto de artes escénicas</dd></div>
+          <div><dt>Dirección</dt><dd>De Sopena 10, Centro, 36000 Guanajuato, Gto.</dd></div>
+          <div><dt>Teléfono</dt><dd><a href="tel:+524737322521">+52 473 732 2521</a></dd></div>
+          <div><dt>Inauguración</dt><dd>27 de octubre de 1903</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="dark-band" id="historia">
+    <div class="container section-grid">
+      <div>
+        <div class="section-label">Una obra de décadas</div>
+        <h2 class="section-title">Del antiguo convento a un emblema urbano.</h2>
+      </div>
+      <div>
+        <p class="lead">La construcción comenzó en 1873 sobre el solar vinculado al antiguo convento de San Diego de Alcalá. El proyecto inicial de José María Noriega fue retomado y transformado por Antonio Rivas Mercado, con Alberto Malo en la etapa final.</p>
+        <p class="copy">El teatro abrió formalmente el 27 de octubre de 1903. Su estreno fue una representación de <em>Aída</em>, de Giuseppe Verdi. Desde entonces ha funcionado tanto como sala de espectáculos como pieza central del paisaje cultural del centro histórico de Guanajuato.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats" aria-label="Datos arquitectónicos destacados">
+    <div class="stat"><strong>1873</strong><span>Inicio de la obra</span></div>
+    <div class="stat"><strong>1903</strong><span>Inauguración</span></div>
+    <div class="stat"><strong>12</strong><span>Columnas del pórtico</span></div>
+    <div class="stat"><strong>8</strong><span>Musas de bronce</span></div>
+  </div>
+
+  <section class="section" id="galeria">
+    <div class="container">
+      <div class="section-heading">
+        <h2>El teatro<br /><em>en detalle</em></h2>
+        <p>La experiencia cambia por completo al atravesar el pórtico: cantera y bronce al exterior; geometría, dorados, madera y una intensa ornamentación en la sala.</p>
+      </div>
+      <div class="gallery-grid">
+        <figure class="photo-card large">
+          <img src={facade} alt="Fachada y columnas del Teatro Juárez en Guanajuato" loading="lazy" />
+          <figcaption class="photo-caption"><small>Exterior</small><strong>El pórtico clasicista</strong></figcaption>
+        </figure>
+        <div class="gallery-stack">
+          <figure class="photo-card">
+            <img src={interior} alt="Interior ornamentado de la sala principal del Teatro Juárez" loading="lazy" />
+            <figcaption class="photo-caption"><small>Sala principal</small><strong>Ornamento neomudéjar</strong></figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src={lobby} alt="Escultura decorativa en el interior del Teatro Juárez" loading="lazy" />
+            <figcaption class="photo-caption"><small>Interiores</small><strong>Escultura y artes decorativas</strong></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="architecture" id="arquitectura">
+    <div class="container">
+      <div class="arch-image"><img src={panorama} alt="Panorámica del interior de la sala principal del Teatro Juárez" loading="lazy" /></div>
+      <div class="arch-content">
+        <div class="section-label">Arquitectura ecléctica</div>
+        <h2>Un diálogo entre lo clásico y lo neomudéjar.</h2>
+        <p>La fachada presenta una monumentalidad clasicista, mientras que la sala principal despliega una decoración historicista de inspiración hispanomusulmana. Esa tensión entre lenguajes es parte de la identidad del edificio.</p>
+        <div class="feature-list">
+          <div class="feature"><b>01</b><p><strong>Pórtico.</strong> Doce columnas estriadas organizan el acceso monumental.</p></div>
+          <div class="feature"><b>02</b><p><strong>Musas.</strong> Ocho esculturas de bronce coronan la balaustrada superior.</p></div>
+          <div class="feature"><b>03</b><p><strong>Sala.</strong> Arcos, lacerías y motivos geométricos construyen el ambiente neomudéjar.</p></div>
+          <div class="feature"><b>04</b><p><strong>Telón.</strong> La decoración histórica del recinto incluye un telón realizado por el artista francés Labasta.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="visita">
+    <div class="container visit">
+      <aside class="info-panel">
+        <div class="section-label">Información práctica</div>
+        <h2>Visita el Teatro Juárez</h2>
+        <div class="info-row"><small>Dirección</small>De Sopena 10, Centro, 36000 Guanajuato, Gto., México</div>
+        <div class="info-row"><small>Teléfono</small><a href="tel:+524737322521">+52 473 732 2521</a></div>
+        <div class="info-row"><small>Plus Code</small>2P8W+5R · Guanajuato, Gto.</div>
+        <div class="info-row"><small>Google Maps</small><a href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">Abrir ubicación ↗</a></div>
+        <div class="notice">Los horarios de visita, acceso a la sala y tarifas pueden cambiar por funciones, montajes o programación especial. Conviene confirmarlos con el recinto antes de desplazarse.</div>
+      </aside>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6619.593719850613!2d-101.25547602298793!3d21.015443788232353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b7407ef067b45%3A0xa7f4cdbcd8596dcd!2z5Y2O6Zu35pav5Ymn6Zmi!5e1!3m2!1szh-CN!2sus!4v1789008475330!5m2!1szh-CN!2sus" title="Mapa del Teatro Juárez" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#efe4d3">
+    <div class="container section-grid">
+      <div>
+        <div class="section-label">Fuentes verificadas</div>
+        <h2 class="section-title">Historia con respaldo institucional.</h2>
+      </div>
+      <div>
+        <p>La información histórica y arquitectónica de esta guía se contrastó con fuentes culturales del Gobierno del Estado de Guanajuato y con el Catálogo Nacional de Monumentos Históricos Inmuebles del INAH.</p>
+        <ul class="source-list">
+          <li><a href="https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/" target="_blank" rel="noopener noreferrer">Cultura Guanajuato · Teatro Juárez ↗</a></li>
+          <li><a href="https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/18296" target="_blank" rel="noopener noreferrer">INAH · Catálogo Nacional de Monumentos Históricos ↗</a></li>
+          <li><a href="https://inah.gob.mx/foto-del-dia/teatro-juarez-un-faro-cultural-guanajuatense" target="_blank" rel="noopener noreferrer">INAH · Teatro Juárez: un faro cultural guanajuatense ↗</a></li>
+        </ul>
+        <p style="font-size:.8rem;color:#76685e;margin-top:24px">* La valoración y el número de reseñas corresponden a los datos de Google Maps proporcionados para esta edición de la guía.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

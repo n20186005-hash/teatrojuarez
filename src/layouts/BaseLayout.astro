@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+const {
+  title = 'Teatro Juárez | Guanajuato, México',
+  description = 'Guía cultural independiente del Teatro Juárez de Guanajuato: historia, arquitectura, ubicación y consejos para la visita.',
+  image = 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Teatro_Ju%C3%A1rez_de_noche.JPG'
+} = Astro.props;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#17120f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <div class="topbar">
+      <div class="container"><span>Guanajuato · México</span><span>Guía cultural independiente</span></div>
+    </div>
+    <header class:list={["site-header", path !== '/' && 'page-header']}>
+      <div class="container nav">
+        <a class="brand" href="/" aria-label="Teatro Juárez — inicio">
+          <span class="brand-mark">TJ</span>
+          <strong>Teatro Juárez</strong>
+        </a>
+        <nav class="navlinks" aria-label="Navegación principal">
+          <a href="/#historia">Historia</a>
+          <a href="/#arquitectura">Arquitectura</a>
+          <a href="/#galeria">Galería</a>
+          <a href="/#visita">Visita</a>
+          <a class="nav-cta" href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">Abrir en Maps ↗</a>
+        </nav>
+      </div>
+    </header>
+    <main><slot /></main>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-top">
+          <div>
+            <h3>Teatro Juárez</h3>
+            <p>Una guía independiente para descubrir uno de los grandes escenarios históricos de Guanajuato.</p>
+          </div>
+          <div>
+            <h4>Explorar</h4>
+            <a href="/#historia">Historia</a>
+            <a href="/#arquitectura">Arquitectura</a>
+            <a href="/#galeria">Galería</a>
+            <a href="/#visita">Cómo llegar</a>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <a href="/privacidad/">Privacidad</a>
+            <a href="/terminos/">Términos</a>
+            <a href="/cookies/">Cookies</a>
+            <a href="/creditos/">Créditos</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Guía independiente del Teatro Juárez.</span>
+          <span>No es el sitio oficial del recinto.</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
