@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: 'https://teatrojuarez.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Cartelera', item: 'https://teatrojuarez.com/cartelera/' }
+  ]
+};
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Qué tipo de eventos presenta el Teatro Juárez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El teatro alberga ópera, conciertos, danza, teatro y ciclos culturales a lo largo del año, con un papel protagonista durante el Festival Internacional Cervantino.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Cuándo es la cartelera del Festival Cervantino?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El Festival Internacional Cervantino se celebra en Guanajuato en otoño. Las fechas exactas de cada edición se confirman en los canales oficiales del festival y del teatro.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Dónde consulto la cartelera actual?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'La programación vigente se publica en los canales oficiales del recinto y del Instituto Estatal de la Cultura de Guanajuato. Esta guía no gestiona la venta de boletos.'
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  locale="es"
+  canonicalPath="/cartelera/"
+  title="Cartelera del Teatro Juárez Guanajuato: eventos y programación"
+  description="Cartelera de eventos del Teatro Juárez: ópera, conciertos, danza, teatro y el Festival Internacional Cervantino. Consulta la programación oficial."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faq)} />
+
+  <section class="page-hero"><div class="container"><div class="section-label">Información práctica</div><h1>Cartelera del Teatro Juárez</h1></div></section>
+  <article class="prose">
+    <p>El Teatro Juárez es uno de los escenarios centrales de la vida cultural de Guanajuato. Su programación combina las artes escénicas con la vida del recinto histórico.</p>
+
+    <h2>Un escenario para las artes escénicas</h2>
+    <p>A lo largo del año el teatro alberga <strong>ópera, conciertos, danza, teatro y ciclos culturales</strong>. La sala neomudéjar, inaugurada en 1903, sigue como marco de espectáculos de alto nivel.</p>
+    <p>Durante el <strong>Festival Internacional Cervantino</strong>, el recinto adquiere un protagonismo especial dentro de la agenda cultural de la ciudad.</p>
+
+    <div class="notice">La programación cambia constantemente. Consulta la cartelera vigente en los canales oficiales del recinto antes de planear tu asistencia.</div>
+
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq">
+      <div class="faq-item"><h3>¿Qué tipo de eventos presenta el Teatro Juárez?</h3><p>El teatro alberga ópera, conciertos, danza, teatro y ciclos culturales a lo largo del año, con un papel protagonista durante el Festival Internacional Cervantino.</p></div>
+      <div class="faq-item"><h3>¿Cuándo es la cartelera del Festival Cervantino?</h3><p>El Festival Internacional Cervantino se celebra en Guanajuato en otoño. Las fechas exactas de cada edición se confirman en los canales oficiales del festival y del teatro.</p></div>
+      <div class="faq-item"><h3>¿Dónde consulto la cartelera actual?</h3><p>La programación vigente se publica en los canales oficiales del recinto y del Instituto Estatal de la Cultura de Guanajuato. Esta guía no gestiona la venta de boletos.</p></div>
+    </div>
+
+    <nav class="related" aria-label="Páginas relacionadas">
+      <a href="/horarios/">Horarios →</a>
+      <a href="/boletos/">Boletos y entradas →</a>
+      <a href="/">Guía general del Teatro Juárez →</a>
+    </nav>
+  </article>
+</BaseLayout>

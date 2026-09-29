@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://teatrojuarez.com/en/' },
+    { '@type': 'ListItem', position: 2, name: 'Program', item: 'https://teatrojuarez.com/en/cartelera/' }
+  ]
+};
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What kinds of events does the Teatro Juárez present?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The theater hosts opera, concerts, dance, theater and cultural cycles throughout the year, with a leading role during the Festival Internacional Cervantino.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'When is the Cervantino festival program?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The Festival Internacional Cervantino takes place in Guanajuato in autumn. The exact dates of each edition are confirmed on the official channels of the festival and the theater.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Where do I check the current program?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The current program is published on the official channels of the venue and the Instituto Estatal de la Cultura de Guanajuato. This guide does not handle ticket sales.'
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  locale="en"
+  canonicalPath="/en/cartelera/"
+  title="Teatro Juárez Guanajuato program: events & schedule"
+  description="Event program at the Teatro Juárez: opera, concerts, dance, theater and the Festival Internacional Cervantino. Check the official program."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faq)} />
+
+  <section class="page-hero"><div class="container"><div class="section-label">Practical information</div><h1>Teatro Juárez program</h1></div></section>
+  <article class="prose">
+    <p>The Teatro Juárez is one of the central stages of Guanajuato’s cultural life. Its program combines the performing arts with the life of the historic venue.</p>
+
+    <h2>A stage for the performing arts</h2>
+    <p>Throughout the year the theater hosts <strong>opera, concerts, dance, theater and cultural cycles</strong>. The neo-Moorish hall, inaugurated in 1903, remains the setting for high-level performances.</p>
+    <p>During the <strong>Festival Internacional Cervantino</strong>, the venue takes on a special prominence within the city’s cultural agenda.</p>
+
+    <div class="notice">The program changes constantly. Check the current program on the venue’s official channels before planning your attendance.</div>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item"><h3>What kinds of events does the Teatro Juárez present?</h3><p>The theater hosts opera, concerts, dance, theater and cultural cycles throughout the year, with a leading role during the Festival Internacional Cervantino.</p></div>
+      <div class="faq-item"><h3>When is the Cervantino festival program?</h3><p>The Festival Internacional Cervantino takes place in Guanajuato in autumn. The exact dates of each edition are confirmed on the official channels of the festival and the theater.</p></div>
+      <div class="faq-item"><h3>Where do I check the current program?</h3><p>The current program is published on the official channels of the venue and the Instituto Estatal de la Cultura de Guanajuato. This guide does not handle ticket sales.</p></div>
+    </div>
+
+    <nav class="related" aria-label="Related pages">
+      <a href="/en/horarios/">Hours →</a>
+      <a href="/en/boletos/">Tickets →</a>
+      <a href="/en/">Teatro Juárez guide →</a>
+    </nav>
+  </article>
+</BaseLayout>

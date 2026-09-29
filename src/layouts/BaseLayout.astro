@@ -3,21 +3,94 @@ import '../styles/global.css';
 const {
   title = 'Teatro Juárez | Guanajuato, México',
   description = 'Guía cultural independiente del Teatro Juárez de Guanajuato: historia, arquitectura, ubicación y consejos para la visita.',
-  image = 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Teatro_Ju%C3%A1rez_de_noche.JPG'
+  image = 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Teatro_Ju%C3%A1rez_de_noche.JPG',
+  locale = 'es',
+  canonicalPath = Astro.url.pathname,
+  i18n = true
 } = Astro.props;
+
+const site = Astro.site ?? new URL('https://teatrojuarez.com');
+const canonical = new URL(canonicalPath, site).href;
+const rawPath = canonicalPath;
+let base = rawPath;
+if (base.startsWith('/en/')) base = '/' + base.slice(4);
+else if (base === '/en' || base === '/en/') base = '/';
+const esHref = new URL(base, site).href;
+const enHref = new URL(base === '/' ? '/en/' : '/en' + base, site).href;
+const alternates = i18n
+  ? [
+      { lang: 'es', href: esHref },
+      { lang: 'en', href: enHref },
+      { lang: 'x-default', href: esHref }
+    ]
+  : [
+      { lang: 'es', href: esHref },
+      { lang: 'x-default', href: esHref }
+    ];
+const ogLocale = locale === 'es' ? 'es_MX' : 'en_US';
+const ogLocaleAlt = locale === 'es' ? 'en_US' : 'es_MX';
+
+const nav = locale === 'es'
+  ? [
+      ['/#historia', 'Historia'],
+      ['/#arquitectura', 'Arquitectura'],
+      ['/#galeria', 'Galería'],
+      ['/#visita', 'Visita']
+    ]
+  : [
+      ['/en/#history', 'History'],
+      ['/en/#architecture', 'Architecture'],
+      ['/en/#gallery', 'Gallery'],
+      ['/en/#visit', 'Visit']
+    ];
+const home = locale === 'es' ? '/' : '/en/';
+const langLabel = locale === 'es' ? 'EN' : 'ES';
+const langHref = locale === 'es' ? enHref : esHref;
+const langTitle = locale === 'es' ? 'Read in English' : 'Leer en español';
+const footerExplore = locale === 'es'
+  ? [
+      ['/#historia', 'Historia'],
+      ['/#arquitectura', 'Arquitectura'],
+      ['/#galeria', 'Galería'],
+      ['/#visita', 'Cómo llegar'],
+      ['/horarios/', 'Horarios'],
+      ['/boletos/', 'Boletos'],
+      ['/cartelera/', 'Cartelera']
+    ]
+  : [
+      ['/en/#history', 'History'],
+      ['/en/#architecture', 'Architecture'],
+      ['/en/#gallery', 'Gallery'],
+      ['/en/#visit', 'How to get there'],
+      ['/en/horarios/', 'Hours'],
+      ['/en/boletos/', 'Tickets'],
+      ['/en/cartelera/', 'Program']
+    ];
+const legal = [
+  ['/privacidad/', 'Privacidad', 'Privacy'],
+  ['/terminos/', 'Términos', 'Terms'],
+  ['/cookies/', 'Cookies', 'Cookies'],
+  ['/creditos/', 'Créditos', 'Credits']
+];
 const path = Astro.url.pathname;
 ---
 <!doctype html>
-<html lang="es-MX">
+<html lang={locale === 'es' ? 'es-MX' : 'en'}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#17120f" />
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:image" content={image} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:site_name" content="Teatro Juárez Guanajuato" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
     <title>{title}</title>
@@ -25,20 +98,17 @@ const path = Astro.url.pathname;
   </head>
   <body>
     <div class="topbar">
-      <div class="container"><span>Guanajuato · México</span><span>Guía cultural independiente</span></div>
+      <div class="container"><span>Guanajuato · México</span>{i18n && <span class="topbar-lang"><a href={langHref} hreflang={locale === 'es' ? 'en' : 'es'} title={langTitle}>{langLabel}</a></span>}</div>
     </div>
-    <header class:list={["site-header", path !== '/' && 'page-header']}>
+    <header class:list={["site-header", path !== '/' && path !== '/en/' && 'page-header']}>
       <div class="container nav">
-        <a class="brand" href="/" aria-label="Teatro Juárez — inicio">
+        <a class="brand" href={home} aria-label="Teatro Juárez — inicio / home">
           <span class="brand-mark">TJ</span>
           <strong>Teatro Juárez</strong>
         </a>
-        <nav class="navlinks" aria-label="Navegación principal">
-          <a href="/#historia">Historia</a>
-          <a href="/#arquitectura">Arquitectura</a>
-          <a href="/#galeria">Galería</a>
-          <a href="/#visita">Visita</a>
-          <a class="nav-cta" href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">Abrir en Maps ↗</a>
+        <nav class="navlinks" aria-label="Navegación principal / main navigation">
+          {nav.map(([href, label]) => <a href={href}>{label}</a>)}
+          <a class="nav-cta" href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">{(locale === 'es' ? 'Abrir en Maps' : 'Open in Maps') + ' ↗'}</a>
         </nav>
       </div>
     </header>
@@ -48,26 +118,22 @@ const path = Astro.url.pathname;
         <div class="footer-top">
           <div>
             <h3>Teatro Juárez</h3>
-            <p>Una guía independiente para descubrir uno de los grandes escenarios históricos de Guanajuato.</p>
+            <p>{locale === 'es'
+              ? 'Una guía independiente para descubrir uno de los grandes escenarios históricos de Guanajuato.'
+              : 'An independent guide to discover one of Guanajuato’s great historic stages.'}</p>
           </div>
           <div>
-            <h4>Explorar</h4>
-            <a href="/#historia">Historia</a>
-            <a href="/#arquitectura">Arquitectura</a>
-            <a href="/#galeria">Galería</a>
-            <a href="/#visita">Cómo llegar</a>
+            <h4>{locale === 'es' ? 'Explorar' : 'Explore'}</h4>
+            {footerExplore.map(([href, es, en]) => <a href={href}>{locale === 'es' ? es : en}</a>)}
           </div>
           <div>
             <h4>Legal</h4>
-            <a href="/privacidad/">Privacidad</a>
-            <a href="/terminos/">Términos</a>
-            <a href="/cookies/">Cookies</a>
-            <a href="/creditos/">Créditos</a>
+            {legal.map(([href, es, en]) => <a href={href}>{locale === 'es' ? es : en}</a>)}
           </div>
         </div>
         <div class="footer-bottom">
-          <span>© 2026 Guía independiente del Teatro Juárez.</span>
-          <span>No es el sitio oficial del recinto.</span>
+          <span>© 2026 {locale === 'es' ? 'Guía independiente del Teatro Juárez.' : 'Independent guide to the Teatro Juárez.'}</span>
+          <span>{locale === 'es' ? 'No es el sitio oficial del recinto.' : 'This is not the official site of the theater.'}</span>
         </div>
       </div>
     </footer>

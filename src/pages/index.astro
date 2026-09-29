@@ -10,10 +10,13 @@ const panorama = 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Panorama_o
 const schema = {
   '@context': 'https://schema.org',
   '@type': ['PerformingArtsTheater', 'TouristAttraction'],
+  '@id': 'https://teatrojuarez.com/#theater',
   name: 'Teatro Juárez',
-  alternateName: ['华雷斯剧院', 'Juárez Theatre'],
+  alternateName: ['华雷斯剧院', 'Juárez Theatre', 'Teatro Juarez'],
   description: 'Teatro histórico de Guanajuato inaugurado en 1903, reconocido por su fachada clasicista y su sala de inspiración neomudéjar.',
   telephone: '+52 473 732 2521',
+  url: 'https://teatrojuarez.com/',
+  isAccessibleForFree: false,
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'De Sopena 10, Centro',
@@ -27,15 +30,77 @@ const schema = {
     latitude: 21.0153,
     longitude: -101.2529
   },
+  hasMap: 'https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    reviewCount: 19280,
+    bestRating: '5',
+    worstRating: '1'
+  },
   sameAs: [
     'https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9',
     'https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/',
     'https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/18296'
   ]
 };
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Teatro Juárez Guanajuato',
+  url: 'https://teatrojuarez.com/',
+  inLanguage: 'es-MX'
+};
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '¿Cuál es el horario del Teatro Juárez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El Teatro Juárez no tiene un horario único fijo porque funciona como recinto de artes escénicas y monumento histórico. Los accesos para visitas, visitas guiadas y funciones cambian según la temporada y la programación. Confirma el horario del día en los canales oficiales antes de desplazarte.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Dónde compro boletos para el Teatro Juárez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Las entradas para funciones y, en su caso, las visitas guiadas se gestionan a través de los canales oficiales del recinto y del Instituto Estatal de la Cultura de Guanajuato. Esta guía no vende boletos; compra siempre por la vía oficial para evitar intermediarios.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Qué tipo de eventos presenta el Teatro Juárez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'El teatro alberga ópera, conciertos, danza, teatro y ciclos culturales a lo largo del año, con un papel protagonista durante el Festival Internacional Cervantino.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: '¿Dónde está y cómo llego al Teatro Juárez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Está en De Sopena 10, Centro, 36000 Guanajuato, Gto. Se encuentra en el centro histórico, cerca de otros puntos turísticos. Puedes abrir la ubicación exacta en Google Maps para planear tu ruta.'
+      }
+    }
+  ]
+};
 ---
-<BaseLayout>
+<BaseLayout
+  locale="es"
+  canonicalPath="/"
+  title="Teatro Juárez Guanajuato: visita, horarios y cartelera"
+  description="Guía del Teatro Juárez en Guanajuato: historia, arquitectura, cómo llegar, horarios, boletos y cartelera de eventos."
+>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(website)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faq)} />
 
   <section class="hero" style={`--hero-image:url('${night}')`}>
     <div class="container hero-grid">
@@ -49,7 +114,7 @@ const schema = {
         </div>
       </div>
       <aside class="hero-card" aria-label="Información rápida">
-        <div class="rating"><div><div class="kicker" style="margin:0 0 4px">Valoración en Maps</div><strong>4.8</strong></div><span>19,249 reseñas*</span></div>
+        <div class="rating"><div><div class="kicker" style="margin:0 0 4px">Valoración en Maps</div><strong>4.8</strong></div><span>19,280 reseñas*</span></div>
         <dl>
           <div><dt>Tipo</dt><dd>Teatro histórico · recinto de artes escénicas</dd></div>
           <div><dt>Dirección</dt><dd>De Sopena 10, Centro, 36000 Guanajuato, Gto.</dd></div>
@@ -136,6 +201,58 @@ const schema = {
       <div class="map-wrap">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6619.593719850613!2d-101.25547602298793!3d21.015443788232353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b7407ef067b45%3A0xa7f4cdbcd8596dcd!2z5Y2O6Zu35pav5Ymn6Zmi!5e1!3m2!1szh-CN!2sus!4v1789008475330!5m2!1szh-CN!2sus" title="Mapa del Teatro Juárez" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="practico">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Horarios,<br /><em>boletos y cartelera</em></h2>
+        <p>El Teatro Juárez combina su faceta de monumento histórico con una programación vigente de artes escénicas. Esto responde a las dudas más frecuentes antes de la visita.</p>
+      </div>
+      <div class="intent-grid">
+        <div class="intent-card">
+          <h3>Horarios de visita y funciones</h3>
+          <p>Como recinto activo, los horarios de acceso a la sala, las visitas guiadas y las funciones cambian según la temporada y la cartelera. Lo habitual es que las visitas turísticas se concentren en el día y los espectáculos por la noche.</p>
+          <p class="intent-note">Confirma el horario del día en los canales oficiales antes de desplazarte; esta guía no vende ni reserva accesos.</p>
+          <a class="intent-more" href="/horarios/">Horarios y visitas →</a>
+        </div>
+        <div class="intent-card">
+          <h3>Boletos y entradas</h3>
+          <p>Las entradas para funciones y, en su caso, las visitas guiadas, se gestionan a través de los canales oficiales del recinto y del Instituto Estatal de la Cultura de Guanajuato. Los precios dependen de cada evento o modalidad de visita.</p>
+          <p class="intent-note">No emitimos boletos. Compra siempre por la vía oficial para evitar intermediarios.</p>
+          <a class="intent-more" href="/boletos/">Boletos y entradas →</a>
+        </div>
+        <div class="intent-card">
+          <h3>Cartelera de eventos</h3>
+          <p>El teatro alberga ópera, conciertos, danza, teatro y ciclos culturales a lo largo del año, con especial protagonismo durante el Festival Internacional Cervantino.</p>
+          <ul class="source-list">
+            <li><a href="https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/" target="_blank" rel="noopener noreferrer">Cultura Guanajuato · Teatro Juárez ↗</a></li>
+            <li><a href="tel:+524737322521">+52 473 732 2521</a></li>
+          </ul>
+          <a class="intent-more" href="/cartelera/">Cartelera de eventos →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Preguntas<br /><em>frecuentes</em></h2>
+        <p>Respuestas honestas a las dudas más comunes antes de visitar el Teatro Juárez.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item"><h3>¿Cuál es el horario del Teatro Juárez?</h3><p>El Teatro Juárez no tiene un horario único fijo porque funciona como recinto de artes escénicas y monumento histórico. Los accesos para visitas, visitas guiadas y funciones cambian según la temporada y la programación. Confirma el horario del día en los canales oficiales antes de desplazarte.</p></div>
+        <div class="faq-item"><h3>¿Dónde compro boletos para el Teatro Juárez?</h3><p>Las entradas para funciones y, en su caso, las visitas guiadas se gestionan a través de los canales oficiales del recinto y del Instituto Estatal de la Cultura de Guanajuato. Esta guía no vende boletos; compra siempre por la vía oficial para evitar intermediarios.</p></div>
+        <div class="faq-item"><h3>¿Qué tipo de eventos presenta el Teatro Juárez?</h3><p>El teatro alberga ópera, conciertos, danza, teatro y ciclos culturales a lo largo del año, con un papel protagonista durante el Festival Internacional Cervantino.</p></div>
+        <div class="faq-item"><h3>¿Dónde está y cómo llego al Teatro Juárez?</h3><p>Está en De Sopena 10, Centro, 36000 Guanajuato, Gto. Se encuentra en el centro histórico, cerca de otros puntos turísticos. Puedes abrir la ubicación exacta en Google Maps para planear tu ruta.</p></div>
+      </div>
+      <nav class="related" aria-label="Páginas relacionadas">
+        <a href="/horarios/">Horarios →</a>
+        <a href="/boletos/">Boletos y entradas →</a>
+        <a href="/cartelera/">Cartelera de eventos →</a>
+      </nav>
     </div>
   </section>
 

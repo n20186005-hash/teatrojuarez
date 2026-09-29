@@ -1,0 +1,276 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const facade = 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Teatro_Juarez_Fachada.jpg';
+const night = 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Teatro_Ju%C3%A1rez_de_noche.JPG';
+const interior = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Interior_of_Teatro_Juarez_Main_Auditorium_-_Guanajuato_-_Mexico_-_01_%2839138645172%29.jpg';
+const lobby = 'https://upload.wikimedia.org/wikipedia/commons/4/48/Teatro_Ju%C3%A1rez%2C_Guanajuato_09_-_Esculturas_del_lobby.jpg';
+const panorama = 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Panorama_of_Interior_of_Teatro_Juarez_Main_Auditorium_-_Guanajuato_-_Mexico_%2839168803691%29.jpg';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': ['PerformingArtsTheater', 'TouristAttraction'],
+  '@id': 'https://teatrojuarez.com/#theater',
+  name: 'Teatro Juárez',
+  alternateName: ['Juárez Theatre', 'Teatro Juarez'],
+  description: 'Historic theater in Guanajuato, Mexico, inaugurated in 1903, known for its classicist façade and its neo-Moorish main hall.',
+  telephone: '+52 473 732 2521',
+  url: 'https://teatrojuarez.com/en/',
+  isAccessibleForFree: false,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'De Sopena 10, Centro',
+    addressLocality: 'Guanajuato',
+    addressRegion: 'Guanajuato',
+    postalCode: '36000',
+    addressCountry: 'MX'
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 21.0153,
+    longitude: -101.2529
+  },
+  hasMap: 'https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9',
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.8',
+    reviewCount: 19280,
+    bestRating: '5',
+    worstRating: '1'
+  },
+  sameAs: [
+    'https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9',
+    'https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/',
+    'https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/18296'
+  ]
+};
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Teatro Juárez Guanajuato',
+  url: 'https://teatrojuarez.com/en/',
+  inLanguage: 'en'
+};
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What are the Teatro Juárez opening hours?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The Teatro Juárez does not keep a single fixed schedule because it operates as both a performing-arts venue and a historic monument. Access for visits, guided tours and performances changes with the season and the program. Confirm the day’s schedule through official channels before traveling.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Where can I buy tickets for the Teatro Juárez?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Tickets for performances and, where applicable, guided tours are handled through the venue’s official channels and the Instituto Estatal de la Cultura de Guanajuato. This guide does not sell tickets; always buy through the official channel to avoid intermediaries.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'What kinds of events does the Teatro Juárez present?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The theater hosts opera, concerts, dance, theater and cultural cycles throughout the year, with a leading role during the Festival Internacional Cervantino.'
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Where is the Teatro Juárez and how do I get there?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It is located at De Sopena 10, Centro, 36000 Guanajuato, Gto. It sits in the historic center, close to other tourist spots. You can open the exact location in Google Maps to plan your route.'
+      }
+    }
+  ]
+};
+---
+<BaseLayout
+  locale="en"
+  canonicalPath="/en/"
+  title="Teatro Juárez Guanajuato: visit, hours, tickets & program"
+  description="Guide to the Teatro Juárez in Guanajuato: history, architecture, how to get there, hours, tickets and event program."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(website)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faq)} />
+
+  <section class="hero" style={`--hero-image:url('${night}')`}>
+    <div class="container hero-grid">
+      <div>
+        <div class="kicker">Stage · Architecture · Memory</div>
+        <h1>Teatro<br />Juárez <em>Guanajuato, Mexico</em></h1>
+        <p class="hero-copy">A solemn façade of twelve columns, eight bronze muses and an interior that trades classicism for neo-Moorish fantasy. Since 1903, the theater has been one of Guanajuato’s great cultural symbols.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#visit">Plan your visit</a>
+          <a class="btn btn-ghost" href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">View on Google Maps ↗</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Quick facts">
+        <div class="rating"><div><div class="kicker" style="margin:0 0 4px">Maps rating</div><strong>4.8</strong></div><span>19,280 reviews*</span></div>
+        <dl>
+          <div><dt>Type</dt><dd>Historic theater · performing arts venue</dd></div>
+          <div><dt>Address</dt><dd>De Sopena 10, Centro, 36000 Guanajuato, Gto.</dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+524737322521">+52 473 732 2521</a></dd></div>
+          <div><dt>Opened</dt><dd>October 27, 1903</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="dark-band" id="history">
+    <div class="container section-grid">
+      <div>
+        <div class="section-label">A work of decades</div>
+        <h2 class="section-title">From a former convent to an urban emblem.</h2>
+      </div>
+      <div>
+        <p class="lead">Construction began in 1873 on land tied to the former convent of San Diego de Alcalá. José María Noriega’s initial project was later taken up and transformed by Antonio Rivas Mercado, with Alberto Malo leading the final stage.</p>
+        <p class="copy">The theater opened formally on October 27, 1903. Its debut was a performance of Giuseppe Verdi’s <em>Aida</em>. Since then it has served both as a performance hall and as a centerpiece of the cultural landscape of Guanajuato’s historic center.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats" aria-label="Architectural highlights">
+    <div class="stat"><strong>1873</strong><span>Work begins</span></div>
+    <div class="stat"><strong>1903</strong><span>Inauguration</span></div>
+    <div class="stat"><strong>12</strong><span>Portico columns</span></div>
+    <div class="stat"><strong>8</strong><span>Bronze muses</span></div>
+  </div>
+
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-heading">
+        <h2>The theater<br /><em>in detail</em></h2>
+        <p>The experience changes completely once you cross the portico: quarry stone and bronze outside; geometry, gilding, wood and dense ornamentation in the hall.</p>
+      </div>
+      <div class="gallery-grid">
+        <figure class="photo-card large">
+          <img src={facade} alt="Façade and columns of the Teatro Juárez in Guanajuato" loading="lazy" />
+          <figcaption class="photo-caption"><small>Exterior</small><strong>The classicist portico</strong></figcaption>
+        </figure>
+        <div class="gallery-stack">
+          <figure class="photo-card">
+            <img src={interior} alt="Ornate interior of the main auditorium of the Teatro Juárez" loading="lazy" />
+            <figcaption class="photo-caption"><small>Main hall</small><strong>Neo-Moorish ornament</strong></figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src={lobby} alt="Decorative sculpture inside the Teatro Juárez" loading="lazy" />
+            <figcaption class="photo-caption"><small>Interiors</small><strong>Sculpture and decorative arts</strong></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="architecture" id="architecture">
+    <div class="container">
+      <div class="arch-image"><img src={panorama} alt="Panorama of the interior of the main auditorium of the Teatro Juárez" loading="lazy" /></div>
+      <div class="arch-content">
+        <div class="section-label">Eclectic architecture</div>
+        <h2>A dialogue between the classical and the neo-Moorish.</h2>
+        <p>The façade shows a classicist monumentality, while the main hall unfolds a historicist decoration of Hispano-Muslim inspiration. That tension between languages is part of the building’s identity.</p>
+        <div class="feature-list">
+          <div class="feature"><b>01</b><p><strong>Portico.</strong> Twelve fluted columns organize the monumental entrance.</p></div>
+          <div class="feature"><b>02</b><p><strong>Musas.</strong> Eight bronze sculptures crown the upper balustrade.</p></div>
+          <div class="feature"><b>03</b><p><strong>Hall.</strong> Arches, lacework and geometric motifs build the neo-Moorish atmosphere.</p></div>
+          <div class="feature"><b>04</b><p><strong>Curtain.</strong> The historic decoration includes a curtain made by the French artist Labasta.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="visit">
+    <div class="container visit">
+      <aside class="info-panel">
+        <div class="section-label">Practical information</div>
+        <h2>Visit the Teatro Juárez</h2>
+        <div class="info-row"><small>Address</small>De Sopena 10, Centro, 36000 Guanajuato, Gto., Mexico</div>
+        <div class="info-row"><small>Phone</small><a href="tel:+524737322521">+52 473 732 2521</a></div>
+        <div class="info-row"><small>Plus Code</small>2P8W+5R · Guanajuato, Gto.</div>
+        <div class="info-row"><small>Google Maps</small><a href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">Open location ↗</a></div>
+        <div class="notice">Visiting hours, access to the hall and fares may change due to performances, stage setups or special programming. It is best to confirm them with the venue before traveling.</div>
+      </aside>
+      <div class="map-wrap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6619.593719850613!2d-101.25547602298793!3d21.015443788232353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x842b7407ef067b45%3A0xa7f4cdbcd8596dcd!2z5Y2O6Zu35pav5Ymn6Zmi!5e1!3m2!1sen!2smx!4v1789008475330!5m2!1sen!2smx" title="Map of the Teatro Juárez" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="practico">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Hours,<br /><em>tickets and program</em></h2>
+        <p>The Teatro Juárez combines its role as a historic monument with a live performing-arts program. This addresses the most common questions before a visit.</p>
+      </div>
+      <div class="intent-grid">
+        <div class="intent-card">
+          <h3>Visiting hours & performances</h3>
+          <p>As an active venue, access to the hall, guided tours and performances change with the season and the program. Tourist visits are typically concentrated during the day and shows in the evening.</p>
+          <p class="intent-note">Confirm the day’s schedule through official channels before traveling; this guide does not sell or reserve access.</p>
+          <a class="intent-more" href="/en/horarios/">Hours &amp; visits →</a>
+        </div>
+        <div class="intent-card">
+          <h3>Tickets</h3>
+          <p>Tickets for performances and, where applicable, guided tours are handled through the venue’s official channels and the Instituto Estatal de la Cultura de Guanajuato. Prices depend on each event or visit type.</p>
+          <p class="intent-note">We do not issue tickets. Always buy through the official channel to avoid intermediaries.</p>
+          <a class="intent-more" href="/en/boletos/">Tickets &amp; entry →</a>
+        </div>
+        <div class="intent-card">
+          <h3>Event program</h3>
+          <p>The theater hosts opera, concerts, dance, theater and cultural cycles throughout the year, with a leading role during the Festival Internacional Cervantino.</p>
+          <ul class="source-list">
+            <li><a href="https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/" target="_blank" rel="noopener noreferrer">Cultura Guanajuato · Teatro Juárez ↗</a></li>
+            <li><a href="tel:+524737322521">+52 473 732 2521</a></li>
+          </ul>
+          <a class="intent-more" href="/en/cartelera/">Event program →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Frequently<br /><em>asked questions</em></h2>
+        <p>Honest answers to the most common questions before visiting the Teatro Juárez.</p>
+      </div>
+      <div class="faq">
+        <div class="faq-item"><h3>What are the Teatro Juárez opening hours?</h3><p>The Teatro Juárez does not keep a single fixed schedule because it operates as both a performing-arts venue and a historic monument. Access for visits, guided tours and performances changes with the season and the program. Confirm the day’s schedule through official channels before traveling.</p></div>
+        <div class="faq-item"><h3>Where can I buy tickets for the Teatro Juárez?</h3><p>Tickets for performances and, where applicable, guided tours are handled through the venue’s official channels and the Instituto Estatal de la Cultura de Guanajuato. This guide does not sell tickets; always buy through the official channel to avoid intermediaries.</p></div>
+        <div class="faq-item"><h3>What kinds of events does the Teatro Juárez present?</h3><p>The theater hosts opera, concerts, dance, theater and cultural cycles throughout the year, with a leading role during the Festival Internacional Cervantino.</p></div>
+        <div class="faq-item"><h3>Where is the Teatro Juárez and how do I get there?</h3><p>It is located at De Sopena 10, Centro, 36000 Guanajuato, Gto. It sits in the historic center, close to other tourist spots. You can open the exact location in Google Maps to plan your route.</p></div>
+      </div>
+      <nav class="related" aria-label="Related pages">
+        <a href="/en/horarios/">Hours →</a>
+        <a href="/en/boletos/">Tickets →</a>
+        <a href="/en/cartelera/">Event program →</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section" style="background:#efe4d3">
+    <div class="container section-grid">
+      <div>
+        <div class="section-label">Verified sources</div>
+        <h2 class="section-title">History with institutional backing.</h2>
+      </div>
+      <div>
+        <p>The historical and architectural information in this guide was cross-checked with cultural sources from the Government of the State of Guanajuato and with the INAH National Catalog of Historic Monuments.</p>
+        <ul class="source-list">
+          <li><a href="https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/" target="_blank" rel="noopener noreferrer">Cultura Guanajuato · Teatro Juárez ↗</a></li>
+          <li><a href="https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/18296" target="_blank" rel="noopener noreferrer">INAH · National Catalog of Historic Monuments ↗</a></li>
+          <li><a href="https://inah.gob.mx/foto-del-dia/teatro-juarez-un-faro-cultural-guanajuatense" target="_blank" rel="noopener noreferrer">INAH · Teatro Juárez: a Guanajuato cultural beacon ↗</a></li>
+        </ul>
+        <p style="font-size:.8rem;color:#76685e;margin-top:24px">* The rating and number of reviews correspond to Google Maps data provided for this edition of the guide.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
