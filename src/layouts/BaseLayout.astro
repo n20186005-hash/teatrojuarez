@@ -3,9 +3,10 @@ import '../styles/global.css';
 const {
   title = 'Teatro Juárez | Guanajuato, México',
   description = 'Guía cultural independiente del Teatro Juárez de Guanajuato: historia, arquitectura, ubicación y consejos para la visita.',
-  image = 'https://upload.wikimedia.org/wikipedia/commons/5/5a/Teatro_Ju%C3%A1rez_de_noche.JPG',
+  image = 'https://teatrojuarez.com/images/stage-illustration.svg',
   locale = 'es',
   canonicalPath = Astro.url.pathname,
+  robots = 'index,follow',
   i18n = true
 } = Astro.props;
 
@@ -23,10 +24,7 @@ const alternates = i18n
       { lang: 'en', href: enHref },
       { lang: 'x-default', href: esHref }
     ]
-  : [
-      { lang: 'es', href: esHref },
-      { lang: 'x-default', href: esHref }
-    ];
+  : [];
 const ogLocale = locale === 'es' ? 'es_MX' : 'en_US';
 const ogLocaleAlt = locale === 'es' ? 'en_US' : 'es_MX';
 
@@ -34,13 +32,13 @@ const nav = locale === 'es'
   ? [
       ['/#historia', 'Historia'],
       ['/#arquitectura', 'Arquitectura'],
-      ['/#galeria', 'Galería'],
+
       ['/#visita', 'Visita']
     ]
   : [
       ['/en/#history', 'History'],
       ['/en/#architecture', 'Architecture'],
-      ['/en/#gallery', 'Gallery'],
+
       ['/en/#visit', 'Visit']
     ];
 const home = locale === 'es' ? '/' : '/en/';
@@ -51,7 +49,7 @@ const footerExplore = locale === 'es'
   ? [
       ['/#historia', 'Historia'],
       ['/#arquitectura', 'Arquitectura'],
-      ['/#galeria', 'Galería'],
+
       ['/#visita', 'Cómo llegar'],
       ['/horarios/', 'Horarios'],
       ['/boletos/', 'Boletos'],
@@ -60,7 +58,7 @@ const footerExplore = locale === 'es'
   : [
       ['/en/#history', 'History'],
       ['/en/#architecture', 'Architecture'],
-      ['/en/#gallery', 'Gallery'],
+
       ['/en/#visit', 'How to get there'],
       ['/en/horarios/', 'Hours'],
       ['/en/boletos/', 'Tickets'],
@@ -80,6 +78,7 @@ const path = Astro.url.pathname;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#17120f" />
     <link rel="canonical" href={canonical} />
     {alternates.map((a) => <link rel="alternate" hreflang={a.lang} href={a.href} />)}
@@ -88,6 +87,7 @@ const path = Astro.url.pathname;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={image} />
+    <meta property="og:image:alt" content={locale === 'es' ? 'Ilustración abstracta original; no es una fotografía del teatro' : 'Original abstract illustration; not a photograph of the theatre'} />
     <meta property="og:locale" content={ogLocale} />
     <meta property="og:locale:alternate" content={ogLocaleAlt} />
     <meta property="og:site_name" content="Teatro Juárez Guanajuato" />
@@ -119,18 +119,19 @@ const path = Astro.url.pathname;
           <div>
             <h3>Teatro Juárez</h3>
             <p>{locale === 'es'
-              ? 'Una guía independiente para descubrir uno de los grandes escenarios históricos de Guanajuato.'
-              : 'An independent guide to discover one of Guanajuato’s great historic stages.'}</p>
+              ? 'Guía independiente y sin fines de lucro de información turística y divulgación cultural sobre el Teatro Juárez de Guanajuato.'
+              : 'An independent, nonprofit tourism and public education information guide to Teatro Juárez in Guanajuato.'}</p>
           </div>
           <div>
             <h4>{locale === 'es' ? 'Explorar' : 'Explore'}</h4>
-            {footerExplore.map(([href, es, en]) => <a href={href}>{locale === 'es' ? es : en}</a>)}
+            {footerExplore.map(([href, label]) => <a href={href}>{label}</a>)}
           </div>
           <div>
             <h4>Legal</h4>
             {legal.map(([href, es, en]) => <a href={href}>{locale === 'es' ? es : en}</a>)}
           </div>
         </div>
+        <p class="container">{locale === 'es' ? 'Ilustración geométrica original de esta guía; no representa el teatro.' : 'Original geometric illustration by this guide; does not depict the theatre.'} <a href="/images/stage-illustration.svg">SVG</a> · <a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0</a></p>
         <div class="footer-bottom">
           <span>© 2026 {locale === 'es' ? 'Guía independiente del Teatro Juárez.' : 'Independent guide to the Teatro Juárez.'}</span>
           <span>{locale === 'es' ? 'No es el sitio oficial del recinto.' : 'This is not the official site of the theater.'}</span>

@@ -1,57 +1,17 @@
 # Teatro Juárez · Guanajuato
 
-Micrositio editorial en español dedicado al Teatro Juárez de Guanajuato, diseñado específicamente alrededor de su arquitectura ecléctica, su pórtico neoclásico y su sala neo-mudéjar.
+Independent Spanish/English visitor guide built with static Astro7.3.2, TypeScript6.0.3, Tailwind4.3.3, Node24.21.0 and pnpm12.3.4. Exact package versions retained; complete application lockfile committed.
 
-## Stack
+Run `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm build`. Native build scripts are limited to esbuild and workerd through pnpm allowBuilds; no global permission or ignored-script fallback.
 
-- Astro 7.3.2
-- TypeScript 6.0.3
-- Tailwind CSS 4.3.3 mediante `@tailwindcss/vite`
-- pnpm 12.3.4
-- Node.js 24.21.0 LTS
-- Cloudflare Workers static assets mediante Wrangler 4.130.0
+Cloudflare project teatrojuarez uses `npm run build` and default `npx wrangler deploy`. Assets remain static; the small Worker canonicalizes HTTP/www while retaining path/query and returns explicit noindex404 responses. No domain or security settings are changed by source. Verify the intended deployment and domains separately.
 
-No usa base de datos, autenticación ni CMS.
+Existing content families: Spanish/English home, hours, tickets, programme; Spanish legal and visual credits pages. Independent guide, no ticket sales or bookings. Prices distinguish building visits from performances and are attributed dated catalogue observations rather than availability promises.
 
-## Desarrollo
+Sources checked29October2026:
+- https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/
+- https://sic.cultura.gob.mx/ficha.php?disciplina=&table=teatro&table_id=386
+- https://pagosenlinea.guanajuato.gob.mx/catalogo?tema=T027
+- https://festivalcervantino.gob.mx/recinto/6/juarez-theater?lan=es
 
-```bash
-corepack enable
-pnpm install
-pnpm check
-pnpm build
-pnpm dev
-```
-
-## Cloudflare
-
-El proyecto genera un sitio estático en `dist/`. `wrangler.jsonc` publica esa carpeta como static assets.
-
-```bash
-pnpm deploy
-```
-
-## Contenido incluido
-
-- Página principal en español
-- Historia y arquitectura
-- Galería de fotografías reales
-- Datos prácticos y Google Maps embebido
-- JSON-LD `PerformingArtsTheater` + `TouristAttraction`
-- Aviso de sitio no oficial
-- Privacidad, términos, cookies y créditos
-- Favicon SVG
-- Configuración Astro / TypeScript / Wrangler
-- Lista detallada de fuentes fotográficas en `IMAGE_SOURCES.md`
-
-## Fuentes históricas principales
-
-- Instituto Estatal de la Cultura de Guanajuato: https://cultura.guanajuato.gob.mx/index.php/teatro-juarez/
-- Catálogo Nacional de Monumentos Históricos (INAH): https://catalogonacionalmhi.inah.gob.mx/consulta_publica/detalle/11300
-- INAH, fotogalería del Teatro Juárez (2026): https://www.inah.gob.mx/foto-del-dia/teatro-juarez-de-guanajuato
-
-## Nota sobre esta entrega
-
-El entorno utilizado para preparar este ZIP no tuvo acceso saliente al registro de npm ni a los binarios de Wikimedia Commons. Por ello no fue posible generar un `pnpm-lock.yaml` verificable, ejecutar una instalación fresca ni descargar los JPG dentro de `public/images`. El código usa temporalmente las URLs de Wikimedia para que las fotografías sean reales y visibles en un entorno con Internet. Consulta `IMAGE_SOURCES.md` para localizarlas manualmente.
-
-No se declara que `pnpm install --frozen-lockfile`, `astro check` o `astro build` hayan pasado en este entorno.
+Visuals: original abstract stage SVG, CC0, not a theatre photograph or depiction. See served /creditos/ for scope/source. Former photographs removed; no clearance claim for underlying artworks.

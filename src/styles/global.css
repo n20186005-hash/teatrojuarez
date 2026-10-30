@@ -178,3 +178,12 @@ img { display:block; max-width:100%; }
   .photo-card.large, .photo-card { min-height:400px; }
   .footer-bottom { flex-direction:column; }
 }
+
+/* Keep practical navigation usable on narrow screens. */
+.nav { flex-wrap: wrap; }
+.navlinks { flex-wrap: wrap; }
+.hero-copy, .hero-card { min-width: 0; }
+
+@media (max-width: 900px) { .navlinks { display: flex; width: 100%; gap: 12px 20px; } }
+
+@media (max-width: 900px) { .topbar .container span.topbar-lang { display: block; } }
