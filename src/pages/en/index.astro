@@ -3,6 +3,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const night = '/images/stage-illustration.svg';
 
+const guideLinks: [string, string][] = [
+  ['/en/visitar-teatro-juarez/', 'How to visit Teatro Juárez'],
+  ['/en/horarios/', 'Opening hours'],
+  ['/en/boletos/', 'Tickets'],
+  ['/en/teatro-juarez-por-dentro/', 'Inside Teatro Juárez'],
+  ['/en/como-llegar/', 'How to get there'],
+  ['/en/historia-teatro-juarez/', 'History'],
+  ['/en/que-ver-cerca/', 'Things to see nearby'],
+  ['/en/festival-cervantino/', 'Cervantino Festival']
+];
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': ['PerformingArtsTheater', 'TouristAttraction'],
@@ -82,8 +93,8 @@ const faq = {
 <BaseLayout
   locale="en"
   canonicalPath="/en/"
-  title="Teatro Juárez Guanajuato: visit, hours, tickets & program"
-  description="Guide to the Teatro Juárez in Guanajuato: history, architecture, how to get there, hours, tickets and event program."
+  title="Teatro Juárez Guanajuato: Visits, Hours, Tickets & Program"
+  description="Independent guide to visiting Teatro Juárez in Guanajuato: hours, tickets, event program, history, architecture, how to get there and what to see nearby."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(website)} />
@@ -112,6 +123,12 @@ const faq = {
       </aside>
     </div>
   </section>
+
+  <nav class="quick-nav" aria-label="Quick links">
+    <div class="container">
+      {guideLinks.map(([href, label]) => <a href={href}>{label}</a>)}
+    </div>
+  </nav>
 
   <section class="dark-band" id="history">
     <div class="container section-grid">
@@ -201,6 +218,25 @@ const faq = {
   </section>
 
 <section class="section"><div class="container"><h2>Building visit or performance ticket?</h2><p>The Guanajuato finance catalogue checked on 29 October 2026 lists general building visits at MXN 62 and preferential visits at MXN 47. Confirm validity, eligibility and access before paying: these are not performance prices or a promise that a tour is available today.</p><p><a href="https://pagosenlinea.guanajuato.gob.mx/catalogo?tema=T027">Official visit catalogue</a> · <a href="https://festivalcervantino.gob.mx/recinto/6/juarez-theater?lan=es">Cervantino venue programme</a>. Check each event date, edition, seating area and conditions; October listings may describe past performances.</p></div></section>
+  <section class="section" id="guides">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Teatro Juárez<br /><em>guides</em></h2>
+        <p>Practical English-language guides covering the questions visitors ask most: how to visit, opening hours, tickets, the interior, how to get there, history, nearby sights and the Cervantino Festival.</p>
+      </div>
+      <div class="guide-groups">
+        <div class="guide-group">
+          <h3>Plan your visit</h3>
+          <ul>
+            {guideLinks.map(([href, label]) => (
+              <li><a href={href}>{label}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="faq">
     <div class="container">
       <div class="section-heading">

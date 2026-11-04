@@ -1,5 +1,4 @@
 const host = 'teatrojuarez.com';
-const paths = new Set(['/', '/horarios/', '/boletos/', '/cartelera/', '/en/', '/en/horarios/', '/en/boletos/', '/en/cartelera/', '/privacidad/', '/terminos/', '/cookies/', '/creditos/']);
 export default {
   /** @param {Request} request @param {{ASSETS:{fetch:(request:Request)=>Promise<Response>}}} env */
   async fetch(request, env) {
@@ -9,8 +8,12 @@ export default {
       return new Response(null, { status: 308, headers: { Location: url.href } });
     }
     const head = request.method === 'HEAD';
-    if ((request.method === 'GET' || head) && paths.has(url.pathname + '/')) {
-      url.pathname += '/'; return new Response(null, { status: 308, headers: { Location: url.href } });
+    if ((request.method === 'GET' || head) && !url.pathname.endsWith('/')) {
+      const lastSegment = url.pathname.split('/').pop() || '';
+      if (!lastSegment.includes('.')) {
+        url.pathname += '/';
+        return new Response(null, { status: 308, headers: { Location: url.href } });
+      }
     }
     const alias = /^\/(?:en\/)?404(?:\.html|\/)?$/.test(url.pathname);
     let response = alias ? null : await env.ASSETS.fetch(request);

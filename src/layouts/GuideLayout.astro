@@ -1,0 +1,233 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { Guide } from '../data/guides/types';
+import { groups, guidesBySlug } from '../data/guides';
+import { guidesEnBySlug } from '../data/guides/en';
+
+interface Props {
+  guide: Guide;
+  locale: 'es' | 'en';
+}
+
+const { guide, locale } = Astro.props;
+const en = locale === 'en';
+const base = en ? '/en/' : '/';
+const canonicalPath = `${base}${guide.slug}/`;
+
+const groupLabel = groups[guide.group][en ? 'en' : 'es'];
+
+const dateLabel = new Date(guide.updated + 'T00:00:00Z').toLocaleDateString(
+  en ? 'en-US' : 'es-MX',
+  { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' }
+);
+
+const t = en
+  ? {
+      home: 'Home',
+      guide: 'Guide',
+      faq: 'Frequently asked questions',
+      sources: 'Sources and verification',
+      related: 'Related pages',
+      updated: 'Last verified',
+      disclaimer:
+        'This is an independent tourism and cultural information guide. It is not the official site or the box office of Teatro Juárez.',
+      overview: 'Practical information',
+      organization: 'Independent guide to Teatro Juárez'
+    }
+  : {
+      home: 'Inicio',
+      guide: 'Guía',
+      faq: 'Preguntas frecuentes',
+      sources: 'Fuentes y verificación',
+      related: 'Páginas relacionadas',
+      updated: 'Última verificación',
+      disclaimer:
+        'Esta es una guía independiente de información turística y cultural. No es el sitio oficial ni la taquilla del Teatro Juárez.',
+      overview: 'Información práctica',
+      organization: 'Guía independiente del Teatro Juárez'
+    };
+
+const extraLabels: Record<string, string> = en
+  ? { horarios: 'Opening hours', boletos: 'Tickets', cartelera: 'Programme' }
+  : { horarios: 'Horarios', boletos: 'Boletos', cartelera: 'Cartelera' };
+
+function labelFor(slug: string): string {
+  const label = en ? guidesEnBySlug[slug]?.h1 : guidesBySlug[slug]?.h1;
+  return label ?? extraLabels[slug] ?? slug;
+}
+
+const homeHref = en ? '/en/' : '/';
+const guideIndexHref = homeHref + '#guias';
+
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.h1,
+  description: guide.description,
+  inLanguage: en ? 'en' : 'es-MX',
+  datePublished: guide.updated,
+  dateModified: guide.updated,
+  mainEntityOfPage: { '@type': 'WebPage', '@id': new URL(canonicalPath, Astro.site).href },
+  author: { '@type': 'Organization', name: t.organization, url: 'https://teatrojuarez.com/' },
+  publisher: { '@type': 'Organization', name: t.organization, url: 'https://teatrojuarez.com/' },
+  about: {
+    '@type': ['PerformingArtsTheater', 'TouristAttraction'],
+    name: 'Teatro Juárez',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'De Sopena 10, Centro',
+      addressLocality: 'Guanajuato',
+      addressRegion: 'Guanajuato',
+      postalCode: '36000',
+      addressCountry: 'MX'
+    }
+  }
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t.home, item: new URL(homeHref, Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: guide.h1, item: new URL(canonicalPath, Astro.site).href }
+  ]
+};
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: guide.faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a }
+  }))
+};
+---
+
+<BaseLayout
+  locale={locale}
+  canonicalPath={canonicalPath}
+  title={guide.title}
+  description={guide.description}
+  i18n={en || Boolean(guide.hasEn)}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(article)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faq)} />
+
+  <section class="page-hero">
+    <div class="container">
+      <nav class="crumbs" aria-label={t.home}>
+        <a href={homeHref}>{t.home}</a> <span aria-hidden="true">/</span> <span>{groupLabel}</span>
+      </nav>
+      <div class="section-label">{groupLabel}</div>
+      <h1>{guide.h1}</h1>
+    </div>
+  </section>
+
+  <article class="prose">
+    <p class="lead-prose">{guide.lead}</p>
+
+    {guide.facts && guide.facts.length > 0 && (
+      <aside class="facts" aria-label={t.overview}>
+        <h2>{t.overview}</h2>
+        <dl>
+          {guide.facts.map((fact) => (
+            <div class="fact">
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <a
+          class="facts-map"
+          href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9"
+          target="_blank"
+          rel="noopener noreferrer"
+        >{en ? 'Open in Google Maps' : 'Abrir en Google Maps'} ↗</a>
+      </aside>
+    )}
+
+    {guide.sections.map((section) => (
+      <section>
+        <h2>{section.heading}</h2>
+        {section.paragraphs.map((p) => <p>{p}</p>)}
+        {section.list && (
+          <ul>
+            {section.list.map((item) => <li>{item}</li>)}
+          </ul>
+        )}
+        {section.note && <p class="note-prose">{section.note}</p>}
+      </section>
+    ))}
+
+    <h2>{t.faq}</h2>
+    <div class="faq">
+      {guide.faq.map((item) => (
+        <div class="faq-item">
+          <h3>{item.q}</h3>
+          <p>{item.a}</p>
+        </div>
+      ))}
+    </div>
+
+    <h2>{t.sources}</h2>
+    <ul class="source-list">
+      {guide.sources.map((source) => (
+        <li>
+          {source.external ? (
+            <a href={source.href} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>
+          ) : (
+            <a href={source.href}>{source.label}</a>
+          )}
+        </li>
+      ))}
+    </ul>
+    <p class="verified">{t.updated}: {dateLabel}.</p>
+    <p class="verified">{t.disclaimer}</p>
+
+    <nav class="related" aria-label={t.related}>
+      {guide.related.map((slug) => <a href={`${base}${slug}/`}>{labelFor(slug)} →</a>)}
+      <a href={guideIndexHref}>{en ? 'All guides' : 'Todas las guías'} →</a>
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .crumbs {
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #cbb391;
+    margin-bottom: 22px;
+  }
+
+  .crumbs a {
+    color: #cbb391;
+    text-decoration: none;
+  }
+
+  .crumbs a:hover {
+    color: #fff;
+  }
+
+  .lead-prose {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.22rem;
+    line-height: 1.6;
+    color: #3d332c;
+  }
+
+  .note-prose {
+    border-left: 3px solid #b28142;
+    padding: 12px 18px;
+    background: #f1e5d4;
+    color: #5a4c40;
+    font-size: 0.94rem;
+  }
+
+  .verified {
+    font-size: 0.84rem;
+    color: #8a7a6c;
+  }
+</style>

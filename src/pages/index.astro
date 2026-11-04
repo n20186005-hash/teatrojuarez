@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { guideGroups } from '../data/guides';
 
 const night = '/images/stage-illustration.svg';
 
@@ -82,8 +83,8 @@ const faq = {
 <BaseLayout
   locale="es"
   canonicalPath="/"
-  title="Teatro Juárez Guanajuato: visita, horarios y cartelera"
-  description="Guía del Teatro Juárez en Guanajuato: historia, arquitectura, cómo llegar, horarios, boletos y cartelera de eventos."
+  title="Teatro Juárez Guanajuato: Visitas, Horarios, Boletos y Cartelera"
+  description="Guía independiente para visitar el Teatro Juárez de Guanajuato: horarios, boletos, cartelera, historia, arquitectura, cómo llegar y qué ver cerca."
 >
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(schema)} />
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(website)} />
@@ -112,6 +113,19 @@ const faq = {
       </aside>
     </div>
   </section>
+
+  <nav class="quick-nav" aria-label="Accesos directos">
+    <div class="container">
+      <a href="/visitar-teatro-juarez/">Visitar el Teatro Juárez</a>
+      <a href="/horarios/">Horarios</a>
+      <a href="/boletos/">Boletos</a>
+      <a href="/cartelera/">Cartelera</a>
+      <a href="/historia-teatro-juarez/">Historia</a>
+      <a href="/arquitectura/">Arquitectura</a>
+      <a href="/como-llegar/">Cómo llegar</a>
+      <a href="/que-ver-cerca/">Qué ver cerca</a>
+    </div>
+  </nav>
 
   <section class="dark-band" id="historia">
     <div class="container section-grid">
@@ -197,6 +211,27 @@ const faq = {
           </ul>
           <a class="intent-more" href="/cartelera/">Cartelera de eventos →</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="guias">
+    <div class="container">
+      <div class="section-heading">
+        <h2>Guías del<br /><em>Teatro Juárez</em></h2>
+        <p>Seis bloques temáticos que responden por separado a lo que busca cada visitante: cómo visitarlo, cómo llegar, su historia y arquitectura, qué hay alrededor, itinerarios y el Festival Cervantino.</p>
+      </div>
+      <div class="guide-groups">
+        {guideGroups.map(({ meta, items }) => (
+          <div class="guide-group">
+            <h3>{meta.es}</h3>
+            <ul>
+              {items.map((g) => (
+                <li><a href={`/${g.slug}/`}>{g.h1}</a></li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   </section>
