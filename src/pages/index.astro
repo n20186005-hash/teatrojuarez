@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { guideGroups } from '../data/guides';
 
-const night = '/images/stage-illustration.svg';
+const night = '/images/teatro-juarez-noche.jpg';
 
 const schema = {
   '@context': 'https://schema.org',
@@ -96,7 +96,7 @@ const faq = {
         <div class="kicker">Escena · Arquitectura · Memoria</div>
         <h1>Teatro<br />Juárez <em>Guanajuato, México</em></h1>
         <p class="hero-copy">Una fachada solemne de doce columnas, ocho musas de bronce y un interior que cambia el clasicismo por la fantasía neomudéjar. Desde 1903, el teatro es uno de los grandes símbolos culturales de la ciudad.</p>
-<p class="copy">Fondo: ilustración abstracta original; no es una fotografía del teatro. <a href="/creditos/">Créditos y CC0</a>.</p>
+<p class="copy">Fondo: fotografía real del Teatro Juárez. <a href="https://commons.wikimedia.org/wiki/File:Teatro_Ju%C3%A1rez_de_noche.JPG">Fuente y autor</a>.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#visita">Planear la visita</a>
           <a class="btn btn-ghost" href="https://maps.app.goo.gl/N6vnCTC4Zi1MfbFF9" target="_blank" rel="noopener noreferrer">Ver en Google Maps ↗</a>
@@ -147,10 +147,22 @@ const faq = {
     <div class="stat"><strong>8</strong><span>Musas de bronce</span></div>
   </div>
 
+  <section class="section" id="galeria">
+    <div class="container">
+      <div class="gallery-grid">
+        <figure class="photo-card large"><img src="/images/teatro-juarez-fachada.jpg" alt="Fachada real del Teatro Juárez" loading="lazy" /><figcaption class="photo-caption"><strong>Fachada del teatro</strong></figcaption></figure>
+        <div class="gallery-stack">
+          <figure class="photo-card"><img src="/images/teatro-juarez-lobby.jpg" alt="Esculturas en el vestíbulo del Teatro Juárez" loading="lazy" /><figcaption class="photo-caption"><strong>Vestíbulo</strong></figcaption></figure>
+          <figure class="photo-card"><img src="/images/teatro-juarez-panorama.jpg" alt="Vista panorámica del auditorio del Teatro Juárez" loading="lazy" /><figcaption class="photo-caption"><strong>Auditorio panorámico</strong></figcaption></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <section class="architecture" id="arquitectura">
     <div class="container">
-      <div class="arch-image"><img src="/images/stage-illustration.svg" alt="Ilustración abstracta del escenario; no representa el teatro" loading="lazy" /></div>
+      <div class="arch-image"><img src="/images/teatro-juarez-auditorio.jpg" alt="Fotografía real del auditorio principal del Teatro Juárez" loading="lazy" /></div>
       <div class="arch-content">
         <div class="section-label">Arquitectura ecléctica</div>
         <h2>Un diálogo entre lo clásico y lo neomudéjar.</h2>
